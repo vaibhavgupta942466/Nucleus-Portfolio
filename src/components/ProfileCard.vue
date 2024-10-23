@@ -4,11 +4,13 @@
     class="container flex flex-col items-center mx-auto shadow-md rounded w-full"
   >
     <!-- Profile Image -->
-    <div class="w-25 h-25 rounded overflow-hidden p-4 border-white shadow-lg">
+    <div
+      class="w-25 h-25 rounded-md overflow-hidden p-4 border-white shadow-lg"
+    >
       <img
         src="/image/profile-3.png"
         alt="Profile Image"
-        class="w-full h-full object-cover"
+        class="w-full h-full object-cover rounded-md"
       />
     </div>
 

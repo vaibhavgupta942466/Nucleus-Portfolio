@@ -8,20 +8,20 @@ onMounted(() => {
   const appProfileCard = document.querySelector('.app-profile-card')
 
   if (appProfileCard) {
-    appProfileCard.style.display = 'none'
+    appProfileCard.style.opacity = 0
   }
 })
 
 onUnmounted(() => {
   const appProfileCard = document.querySelector('.app-profile-card')
   if (appProfileCard) {
-    appProfileCard.style.display = ''
+    appProfileCard.style.opacity = 1
   }
 })
 </script>
 
 <template>
-  <div class="container lg:w-3/5">
+  <div class="container lg:w-3/4">
     <ProfileCard />
   </div>
 </template>
