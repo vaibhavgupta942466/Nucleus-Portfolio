@@ -31,7 +31,7 @@ const menuItems = [
     icon: '/image/home.svg',
   },
   {
-    path: '/About',
+    path: '/about',
     label: 'About',
     icon: '/image/profile.svg',
   },
