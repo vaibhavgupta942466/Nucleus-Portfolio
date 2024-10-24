@@ -2,7 +2,7 @@
 <template>
   <footer>
     <!-- Main Footer Content -->
-    <div class="container mx-auto px-4 pt-6">
+    <div class="container mx-auto px-2 py-6">
       <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
         <!-- Personal Brand -->
         <div class="col-span-1 max-w-md">
@@ -33,17 +33,11 @@
     <!-- Bottom Bar -->
     <div class="border-t border-slate-200">
       <div class="container mx-auto p-4">
-        <div class="flex justify-between items-center">
+        <div class="flex justify-center items-center">
           <p class="text-sm text-slate-600">
             © {{ new Date().getFullYear() }} Portfolio. Built with Vue.js and
             Tailwind CSS
           </p>
-          <a
-            href="mailto:vaibhavgupta942466@gmail.com"
-            class="text-sm text-slate-600 hover:text-blue transition-colors duration-300"
-          >
-            vaibhavgupta942466@gmail.com
-          </a>
         </div>
       </div>
     </div>
