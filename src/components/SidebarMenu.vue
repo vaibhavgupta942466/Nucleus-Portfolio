@@ -58,7 +58,7 @@ const menuItems = [
 ]
 
 const handleResize = () => {
-  isMobile.value = window.innerWidth <= 640
+  isMobile.value = window.innerWidth < 976
 }
 
 onMounted(() => {

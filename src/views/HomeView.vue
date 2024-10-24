@@ -8,14 +8,14 @@ onMounted(() => {
   const appProfileCard = document.querySelector('.app-profile-card')
 
   if (appProfileCard) {
-    appProfileCard.style.opacity = 0
+    appProfileCard.style.display = 'none'
   }
 })
 
 onUnmounted(() => {
   const appProfileCard = document.querySelector('.app-profile-card')
   if (appProfileCard) {
-    appProfileCard.style.opacity = 1
+    appProfileCard.style.display = ''
   }
 })
 </script>
