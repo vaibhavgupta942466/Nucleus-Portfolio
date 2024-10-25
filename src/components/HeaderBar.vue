@@ -1,7 +1,10 @@
 <!-- src/components/HeaderBar.vue -->
 <template>
   <header>
-    <div class="flex flex-wrap items-center justify-between mx-auto py-20 px-2">
+    <div
+      class="flex flex-wrap items-center justify-between mx-auto px-2"
+      :class="isMobile || isTablet ? 'py-4' : 'py-20'"
+    >
       <RouterLink
         to="/"
         class="flex items-center space-x-3 rtl:space-x-reverse"
@@ -19,9 +22,9 @@
         <ThemeToggle />
         <!-- Mobile Menu Button -->
         <button
+          v-if="isTablet"
           type="button"
           class="inline-flex items-center w-10 h-10 justify-center text-sm rounded-lg focus:outline-none"
-          :class="[isMobile ? 'block' : 'hidden']"
           @click="isMenuOpen = !isMenuOpen"
         >
           <span class="sr-only">Toggle menu</span>
@@ -42,68 +45,41 @@
           </svg>
         </button>
       </div>
-      <!-- Navigation Menu -->
-      <nav :class="['w-full', isMenuOpen ? 'block' : 'hidden']">
-        <ul
-          class="flex flex-col p-4 mt-4 font-medium border border-gray-100 rounded-lg bg-gray-50 rtl:space-x-reverse"
-        >
-          <li>
-            <RouterLink to="/" class="block py-2 px-3 rounded hover:bg-gray-100"
-              >Home</RouterLink
-            >
-          </li>
-          <li>
-            <RouterLink
-              to="/about"
-              class="block py-2 px-3 rounded hover:bg-gray-100"
-              >About</RouterLink
-            >
-          </li>
-          <li>
-            <RouterLink
-              to="/resume"
-              class="block py-2 px-3 rounded hover:bg-gray-100"
-              >Resume</RouterLink
-            >
-          </li>
-          <li>
-            <RouterLink
-              to="/work"
-              class="block py-2 px-3 rounded hover:bg-gray-100"
-              >Work</RouterLink
-            >
-          </li>
-          <li>
-            <RouterLink
-              to="/blog"
-              class="block py-2 px-3 rounded hover:bg-gray-100"
-              >Blog</RouterLink
-            >
-          </li>
-          <li>
-            <RouterLink
-              to="/contact"
-              class="block py-2 px-3 rounded hover:bg-gray-100"
-              >Contact</RouterLink
-            >
-          </li>
-        </ul>
-      </nav>
     </div>
+    <!-- Navigation Menu -->
+    <nav
+      :class="['w-full', isMenuOpen ? 'block' : 'hidden']"
+      @click="isMenuOpen = !isMenuOpen"
+    >
+      <ul class="flex flex-col m-2 p-2 border rounded-lg rtl:space-x-reverse">
+        <li v-for="item in menuItems" :key="item.path">
+          <router-link
+            :to="item.path"
+            class="block py-2 px-3 rounded"
+            :class="route.path === item.path ? 'bg-blue' : ''"
+          >
+            {{ item.label }}
+          </router-link>
+        </li>
+      </ul>
+    </nav>
   </header>
 </template>
 
 <script setup>
-import { RouterLink } from 'vue-router'
+import { useRoute } from 'vue-router'
 import ThemeToggle from './ThemeToggle.vue'
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, onUnmounted } from 'vue'
 
+const route = useRoute()
 // State for mobile view handling
 const isMobile = ref(false)
+const isTablet = ref(false)
+const isMenuOpen = ref(false)
 
 // Check if device is mobile
 const checkMobile = () => {
-  isMobile.value = window.innerWidth < 1024 && window.innerWidth > 767 // lg breakpoint in Tailwind
+  isMobile.value = window.innerWidth < 768 // lg breakpoint in Tailwind
 }
 
 // Initialize mobile detection
@@ -112,5 +88,57 @@ onMounted(() => {
   window.addEventListener('resize', checkMobile)
 })
 
-const isMenuOpen = ref(false)
+onUnmounted(() => {
+  checkMobile()
+  window.removeEventListener('resize', checkMobile)
+})
+
+// Check if device is tablet
+const checkTablet = () => {
+  isTablet.value = window.innerWidth < 1024 && window.innerWidth >= 768 // lg breakpoint in Tailwind
+}
+
+// Initialize tablet detection
+onMounted(() => {
+  checkTablet()
+  window.addEventListener('resize', checkTablet)
+})
+
+onUnmounted(() => {
+  checkTablet()
+  window.removeEventListener('resize', checkTablet)
+})
+
+const menuItems = [
+  {
+    path: '/',
+    label: 'Home',
+    icon: '/image/home.svg',
+  },
+  {
+    path: '/about',
+    label: 'About',
+    icon: '/image/profile.svg',
+  },
+  {
+    path: '/resume',
+    label: 'Resume',
+    icon: '/image/resume.svg',
+  },
+  {
+    path: '/work',
+    label: 'Work',
+    icon: '/image/work.svg',
+  },
+  {
+    path: '/blog',
+    label: 'Blog',
+    icon: '/image/blog.svg',
+  },
+  {
+    path: '/contact',
+    label: 'Contact',
+    icon: '/image/contact.svg',
+  },
+]
 </script>
