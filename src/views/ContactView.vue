@@ -1,10 +1,10 @@
 <!-- src/views/Contact.vue -->
 <template>
-  <div class="container mx-auto rounded shadow-md p-4 flex flex-col">
-    <div v-if="alertMessage" class="rounded my-6" role="alert">
-      {{ alertMessage }}
-    </div>
+  <div class="container mx-auto rounded shadow-md py-4 px-2 flex flex-col">
     <div class="container flex flex-col">
+      <div v-if="alertMessage" class="rounded my-6" role="alert">
+        {{ alertMessage }}
+      </div>
       <h2 class="text-3xl font-bold my-6">Contact</h2>
       <form @submit.prevent="handleSubmit">
         <div v-if="loading" class="text-center">Loading...</div>
@@ -118,8 +118,6 @@ const handleSubmit = async () => {
     loading.value = false
     return
   }
-
-  console.log(formData)
 
   try {
     const response = await fetch('/api/sendEmail', {

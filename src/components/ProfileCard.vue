@@ -65,6 +65,14 @@
         </li>
       </ul>
     </div>
+    <div class="flex items-center justify-center gap-x-5 py-3">
+      <button
+        type="submit"
+        class="rounded bg-blue px-6 py-2 text-sm font-semibold shadow-sm transition-transform hover:scale-110"
+      >
+        Download Resume
+      </button>
+    </div>
   </div>
 </template>
 

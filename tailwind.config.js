@@ -5,8 +5,9 @@ export default {
     screens: {
       sm: '480px',
       md: '768px',
-      lg: '976px',
-      xl: '1440px',
+      lg: '1024px',
+      xl: '1280px',
+      '2xl': '1536px',
     },
     colors: {
       primary: {
@@ -32,10 +33,6 @@ export default {
       'gray-dark': '#273444',
     },
     extend: {
-      backgroundImage: {
-        '1st-background': 'url("/image/wallpaperflare.com_wallpaper (21).jpg")',
-        '2nd-background': 'url("/image/wallpaperflare.com_wallpaper (11).jpg")',
-      },
       fontFamily: {
         playfair: ['Playfair Display', 'serif'],
         'playfair-italic': ['Playfair Display Italic', 'serif'],

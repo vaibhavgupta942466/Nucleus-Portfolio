@@ -1,6 +1,6 @@
 <!-- src/views/AboutView.vue -->
 <template>
-  <div class="container mx-auto rounded shadow-md p-4 flex flex-col">
+  <div class="container mx-auto rounded shadow-md py-4 px-2 flex flex-col">
     <h2 class="text-3xl font-bold my-6">About Me</h2>
     <p
       class="leading-relaxed mb-2 text-sm"
@@ -45,7 +45,7 @@
       </div>
     </div>
 
-    <h2 class="text-3xl font-bold my-6 text-center">Clients</h2>
+    <h2 class="text-3xl font-semibold my-6 text-center">Service</h2>
     <div
       x-data="{}"
       x-init="$nextTick(() => {
