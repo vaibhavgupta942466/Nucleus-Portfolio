@@ -7,7 +7,7 @@ import BlogView from './BlogView.vue'
 import ContactView from './ContactView.vue'
 import ProfileCard from '@/components/ProfileCard.vue'
 
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, onUnmounted } from 'vue'
 // State for mobile view handling
 const isMobile = ref(false)
 const isTablet = ref(false)
@@ -17,16 +17,31 @@ const checkMobile = () => {
   isMobile.value = window.innerWidth < 768 // lg breakpoint in Tailwind
 }
 
-// Check if device is mobile
+// Initialize mobile detection
+onMounted(() => {
+  checkMobile()
+  window.addEventListener('resize', checkMobile)
+})
+
+onUnmounted(() => {
+  checkMobile()
+  window.removeEventListener('resize', checkMobile)
+})
+
+// Check if device is tablet
 const checkTablet = () => {
   isTablet.value = window.innerWidth < 1024 && window.innerWidth >= 768 // lg breakpoint in Tailwind
 }
 
-// Initialize mobile detection
+// Initialize tablet detection
 onMounted(() => {
-  checkMobile()
   checkTablet()
-  window.addEventListener('resize', checkMobile, checkTablet)
+  window.addEventListener('resize', checkTablet)
+})
+
+onUnmounted(() => {
+  checkTablet()
+  window.removeEventListener('resize', checkTablet)
 })
 </script>
 

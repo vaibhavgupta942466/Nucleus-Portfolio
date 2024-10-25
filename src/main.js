@@ -5,9 +5,14 @@ import { createApp } from 'vue'
 import { createPinia } from 'pinia'
 
 import App from './App.vue'
-import router from './router'
+import { router, cleanupRouter } from './router'
 
 const app = createApp(App)
+
+// Add cleanup on app unmount
+app.unmount = () => {
+  cleanupRouter()
+}
 
 app.use(createPinia())
 app.use(router)
