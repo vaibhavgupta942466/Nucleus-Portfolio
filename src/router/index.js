@@ -68,6 +68,7 @@ const router = createRouter({
       path: '/:pathMatch(.*)*',
       name: 'not-found',
       component: NotFoundView,
+      meta: { allowMobile: true },
       // Redirect users to the home page when they attempt to access an undefined route.
       // redirect: '/',
     },
