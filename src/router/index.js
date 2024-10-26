@@ -33,7 +33,13 @@ const router = createRouter({
       alias: '/home',
       name: 'home',
       component: HomeView,
-      meta: { allowMobile: true },
+      meta: {
+        allowMobile: true,
+        label: 'Home',
+        icon: '/image/home.svg',
+        menu: true,
+      },
+
       // // route level code-splitting
       // // this generates a separate chunk (About.[hash].js) for this route
       // // which is lazy-loaded when the route is visited.
@@ -43,26 +49,31 @@ const router = createRouter({
       path: '/about',
       name: 'about',
       component: AboutView,
+      meta: { label: 'About', icon: '/image/profile.svg', menu: true },
     },
     {
       path: '/resume',
       name: 'resume',
       component: ResumeView,
+      meta: { label: 'Resume', icon: '/image/resume.svg', menu: true },
     },
     {
       path: '/work',
       name: 'work',
       component: WorkView,
+      meta: { label: 'Work', icon: '/image/work.svg', menu: true },
     },
     {
       path: '/blog',
       name: 'blog',
       component: BlogView,
+      meta: { label: 'Blog', icon: '/image/blog.svg', menu: true },
     },
     {
       path: '/contact',
       name: 'contact',
       component: ContactView,
+      meta: { label: 'Contact', icon: '/image/contact.svg', menu: true },
     },
     {
       path: '/:pathMatch(.*)*',
