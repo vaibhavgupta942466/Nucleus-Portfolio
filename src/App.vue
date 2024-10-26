@@ -8,6 +8,9 @@ import HeaderBar from './components/HeaderBar.vue'
 import FooterBar from './components/FooterBar.vue'
 
 import { ref, onMounted, onUnmounted } from 'vue'
+import { useMenuStore } from './stores/menuStore'
+// Initialize the store
+const menuStore = useMenuStore()
 // State for mobile view handling
 const isMobile = ref(false)
 const isTablet = ref(false)
@@ -50,7 +53,10 @@ const route = useRoute()
 <template>
   <div class="container mx-auto">
     <HeaderBar />
-    <div class="flex flex-col justify-center lg:flex-row lg:justify-center">
+    <div
+      class="flex flex-col justify-center lg:flex-row lg:justify-center"
+      @click="menuStore.closeMenu"
+    >
       <template v-if="isMobile || isTablet">
         <div class="lg:w-1/4 p-2">
           <ProfileCard />
@@ -94,6 +100,12 @@ const route = useRoute()
         </div>
       </template>
     </div>
-    <FooterBar />
+    <FooterBar
+      :class="
+        (route.path === '/' || route.path === '/home') && !isMobile
+          ? 'hidden'
+          : 'block'
+      "
+    />
   </div>
 </template>

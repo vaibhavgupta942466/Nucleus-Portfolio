@@ -25,7 +25,7 @@
           v-if="isTablet"
           type="button"
           class="inline-flex items-center w-10 h-10 justify-center text-sm rounded-lg focus:outline-none"
-          @click="isMenuOpen = !isMenuOpen"
+          @click="menuStore.toggleMenu"
         >
           <span class="sr-only">Toggle menu</span>
           <svg
@@ -47,18 +47,32 @@
       </div>
     </div>
     <!-- Navigation Menu -->
-    <nav
-      :class="['w-full', isMenuOpen ? 'block' : 'hidden']"
-      @click="isMenuOpen = !isMenuOpen"
-    >
+    <nav :class="['w-full', isMenuOpen ? 'block' : 'hidden']">
       <ul class="flex flex-col m-2 p-2 border rounded-lg rtl:space-x-reverse">
-        <li v-for="item in menuItems" :key="item.path">
+        <li
+          @click="menuStore.closeMenu"
+          v-for="item in router.getRoutes().filter(route => {
+            return (
+              // have meta.menu set to true
+              route?.meta?.menu === true &&
+              // are not the root route
+              route.path !== '/' &&
+              // optionally: exclude dynamic routes
+              !route.path.includes('/:')
+            )
+          })"
+          :key="item.path"
+        >
           <router-link
             :to="item.path"
             class="block py-2 px-3 rounded"
-            :class="route.path === item.path ? 'bg-blue' : ''"
+            :class="
+              route.path === item.path || route.path === item?.aliasOf?.path
+                ? 'bg-blue'
+                : ''
+            "
           >
-            {{ item.label }}
+            {{ item?.meta?.label }}
           </router-link>
         </li>
       </ul>
@@ -67,15 +81,26 @@
 </template>
 
 <script setup>
+import { router } from '@/router'
 import { useRoute } from 'vue-router'
 import ThemeToggle from './ThemeToggle.vue'
 import { ref, onMounted, onUnmounted } from 'vue'
 
 const route = useRoute()
+
+// script setup syntax automatically exposes everything to the template
+import { useMenuStore } from '@/stores/menuStore' // adjust path as needed
+import { storeToRefs } from 'pinia' // for destructuring reactive state
+
+// Initialize the store
+const menuStore = useMenuStore()
+
+// If you need to destructure store properties while keeping reactivity
+const { isMenuOpen } = storeToRefs(menuStore)
+
 // State for mobile view handling
 const isMobile = ref(false)
 const isTablet = ref(false)
-const isMenuOpen = ref(false)
 
 // Check if device is mobile
 const checkMobile = () => {
@@ -108,37 +133,4 @@ onUnmounted(() => {
   checkTablet()
   window.removeEventListener('resize', checkTablet)
 })
-
-const menuItems = [
-  {
-    path: '/',
-    label: 'Home',
-    icon: '/image/home.svg',
-  },
-  {
-    path: '/about',
-    label: 'About',
-    icon: '/image/profile.svg',
-  },
-  {
-    path: '/resume',
-    label: 'Resume',
-    icon: '/image/resume.svg',
-  },
-  {
-    path: '/work',
-    label: 'Work',
-    icon: '/image/work.svg',
-  },
-  {
-    path: '/blog',
-    label: 'Blog',
-    icon: '/image/blog.svg',
-  },
-  {
-    path: '/contact',
-    label: 'Contact',
-    icon: '/image/contact.svg',
-  },
-]
 </script>
