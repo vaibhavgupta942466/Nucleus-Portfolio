@@ -3,7 +3,7 @@
   <header>
     <div
       class="flex flex-wrap items-center justify-between mx-auto px-2"
-      :class="isMobile || isTablet ? 'py-4' : 'py-20'"
+      :class="isMobile || isTablet ? 'py-4' : 'pb-20 pt-4'"
     >
       <RouterLink
         to="/"
