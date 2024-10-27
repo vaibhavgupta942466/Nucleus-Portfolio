@@ -10,7 +10,7 @@
         class="flex items-center space-x-3 rtl:space-x-reverse"
       >
         <img
-          src="/image/logo.png"
+          src="/image/logo.svg"
           alt="Nucleus Creator Logo"
           class="w-10 h-10"
         />
