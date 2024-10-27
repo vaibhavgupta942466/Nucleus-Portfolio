@@ -57,18 +57,18 @@ const router = createRouter({
       component: ResumeView,
       meta: { label: 'Resume', icon: '/image/resume.svg', menu: true },
     },
-    {
-      path: '/work',
-      name: 'work',
-      component: WorkView,
-      meta: { label: 'Work', icon: '/image/work.svg', menu: true },
-    },
-    {
-      path: '/blog',
-      name: 'blog',
-      component: BlogView,
-      meta: { label: 'Blog', icon: '/image/blog.svg', menu: true },
-    },
+    // {
+    //   path: '/work',
+    //   name: 'work',
+    //   component: WorkView,
+    //   meta: { label: 'Work', icon: '/image/work.svg', menu: true },
+    // },
+    // {
+    //   path: '/blog',
+    //   name: 'blog',
+    //   component: BlogView,
+    //   meta: { label: 'Blog', icon: '/image/blog.svg', menu: true },
+    // },
     {
       path: '/contact',
       name: 'contact',

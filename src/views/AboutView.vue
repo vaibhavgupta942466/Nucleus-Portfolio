@@ -45,7 +45,7 @@
       </div>
     </div>
 
-    <h2 class="text-3xl font-semibold my-6 text-center">Service</h2>
+    <h2 class="text-3xl font-semibold my-6 text-center">Clients</h2>
     <div
       x-data="{}"
       x-init="$nextTick(() => {
@@ -57,25 +57,33 @@
     >
       <ul
         x-ref="logos"
-        class="flex items-center justify-center md:justify-start [&_li]:mx-8 [&_img]:max-w-none animate-infinite-scroll"
+        class="flex items-center justify-center md:justify-start [&_li]:mx-4 [&_li]:m-2 [&_img]:max-w-none animate-infinite-scroll"
       >
-        <li v-for="(image, index) in clientImages" :key="index">
+        <li
+          v-for="(image, index) in clientImages"
+          :key="index"
+          class="shadow-md shadow-gray-dark px-6"
+        >
           <img
             :src="image.src"
             :alt="image.alt"
-            class="object-contain w-12 h-12"
+            class="object-contain w-20 h-20"
           />
         </li>
       </ul>
       <ul
-        class="flex items-center justify-center md:justify-start [&_li]:mx-8 [&_img]:max-w-none animate-infinite-scroll"
+        class="flex items-center justify-center md:justify-start [&_li]:mx-4 [&_li]:m-2 [&_img]:max-w-none animate-infinite-scroll"
         aria-hidden="true"
       >
-        <li v-for="(image, index) in clientImages" :key="index">
+        <li
+          v-for="(image, index) in clientImages"
+          :key="index"
+          class="shadow-md shadow-gray-dark px-6"
+        >
           <img
             :src="image.src"
             :alt="image.alt"
-            class="object-contain w-12 h-12"
+            class="object-contain w-20 h-20"
           />
         </li>
       </ul>
@@ -136,12 +144,13 @@ const services = [
 ]
 
 const clientImages = [
-  { src: '/image/web-development.svg', alt: 'Client 1' },
-  { src: '/image/app-development.svg', alt: 'Client 2' },
-  { src: '/image/web-development.svg', alt: 'Client 1' },
-  { src: '/image/app-development.svg', alt: 'Client 2' },
-  { src: '/image/web-development.svg', alt: 'Client 1' },
-  { src: '/image/app-development.svg', alt: 'Client 2' },
+  { src: '/image/clients/byte-law.svg', alt: 'ByteLaw' },
+  { src: '/image/clients/carsify.svg', alt: 'Carsify' },
+  { src: '/image/clients/persistent.png', alt: 'Persistance' },
+  { src: '/image/clients/very-mulberry.svg', alt: 'Very Mulberry' },
+  { src: '/image/clients/superior-stay.svg', alt: 'Superior Stay' },
+  { src: '/image/clients/neelyx-lab.png', alt: 'Neeylax' },
+  { src: '/image/clients/trusted-communities.svg', alt: 'Trusted Communities' },
 ]
 </script>
 
