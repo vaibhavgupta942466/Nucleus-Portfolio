@@ -57,12 +57,12 @@
     >
       <ul
         x-ref="logos"
-        class="flex items-center justify-center md:justify-start [&_li]:mx-4 [&_li]:m-2 [&_img]:max-w-none animate-infinite-scroll"
+        class="flex items-center justify-center md:justify-start [&_li]:mx-4 [&_li]:my-1 [&_img]:max-w-none animate-infinite-scroll"
       >
         <li
           v-for="(image, index) in clientImages"
           :key="index"
-          class="shadow-md shadow-gray-dark px-6"
+          class="bg-gray-light border-lg rounded shadow-md shadow-gray-dark px-8 py-1"
         >
           <img
             :src="image.src"
@@ -72,13 +72,13 @@
         </li>
       </ul>
       <ul
-        class="flex items-center justify-center md:justify-start [&_li]:mx-4 [&_li]:m-2 [&_img]:max-w-none animate-infinite-scroll"
+        class="flex items-center justify-center md:justify-start [&_li]:mx-4 [&_li]:my-1 [&_img]:max-w-none animate-infinite-scroll"
         aria-hidden="true"
       >
         <li
           v-for="(image, index) in clientImages"
           :key="index"
-          class="shadow-md shadow-gray-dark px-6"
+          class="bg-gray-light border-lg rounded shadow-md shadow-gray-dark px-8 py-1"
         >
           <img
             :src="image.src"
