@@ -2,9 +2,6 @@
 <template>
   <div class="container mx-auto rounded shadow-md py-4 px-2 flex flex-col">
     <div class="container flex flex-col">
-      <div v-if="alertMessage" class="rounded my-6" role="alert">
-        {{ alertMessage }}
-      </div>
       <h2 class="text-3xl font-bold my-6">Contact</h2>
       <form @submit.prevent="handleSubmit">
         <div v-if="loading" class="text-center">Loading...</div>
@@ -16,9 +13,7 @@
 
           <div class="my-6">
             <div class="mb-6">
-              <label
-                for="contact-name"
-                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+              <label for="contact-name" class="block mb-2 text-sm font-medium"
                 >Contact Name</label
               >
               <input
@@ -31,9 +26,7 @@
               />
             </div>
             <div class="mb-6">
-              <label
-                for="email"
-                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+              <label for="email" class="block mb-2 text-sm font-medium"
                 >Your email</label
               >
               <input
@@ -51,9 +44,7 @@
               />
             </div>
             <div>
-              <label
-                for="message"
-                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+              <label for="message" class="block mb-2 text-sm font-medium"
                 >Your message</label
               >
               <textarea
@@ -72,7 +63,17 @@
           </div>
         </div>
 
-        <div class="flex items-center justify-end gap-x-5">
+        <div
+          class="flex items-center gap-x-5"
+          :class="alertMessage ? 'justify-between' : 'justify-end'"
+        >
+          <div
+            v-if="alertMessage"
+            class="bg-gray-50 text-gray-900 rounded my-6 border border-gray-300 px-4 py-2"
+            role="alert"
+          >
+            {{ alertMessage }}
+          </div>
           <button
             type="submit"
             class="rounded bg-blue px-6 py-2 text-sm font-semibold shadow-sm transition-transform hover:scale-110"
@@ -120,25 +121,26 @@ const handleSubmit = async () => {
   }
 
   try {
-    const response = await fetch('/api/sendEmail', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
+    const response = await fetch(
+      'https://us-central1-nucelus.cloudfunctions.net/nucleus-creator-portfolio-query-mail',
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+        mode: 'cors', // This tells the browser to make a CORS request.
       },
-      body: JSON.stringify(formData),
-    })
+    )
 
-    const responseData = await response.json()
-
-    if (response.status === 200) {
+    if (response.ok) {
       // Clear form on success
       formData.name = ''
       formData.email = ''
       formData.message = ''
-      alertMessage.value = responseData.message
+      alertMessage.value = 'Your message has been received'
     } else {
-      alertMessage.value =
-        responseData.error || 'Failed to send email. Please try again later.'
+      alertMessage.value = 'Failed to send email. Please try again later.'
     }
   } catch (error) {
     console.log(error)
