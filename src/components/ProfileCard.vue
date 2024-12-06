@@ -83,7 +83,7 @@ const calendarLink = ref('')
 
 const socialLinks = [
   {
-    url: 'https://www.linkedin.com/in/vaibhav-gupta-337120193/',
+    url: 'https://www.linkedin.com/in/vaibhav-gupta-devai/',
     icon: '/image/linkedin.svg',
   },
   {
