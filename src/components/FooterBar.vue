@@ -1,6 +1,6 @@
 <!-- src/components/FooterBar.vue -->
 <template>
-  <footer>
+  <footer :class="route.path === '/home' ? 'hidden' : 'block'">
     <!-- Main Footer Content -->
     <div class="container mx-auto px-2 py-6">
       <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
@@ -55,4 +55,7 @@ const techStack = [
   'Python',
   'AI/ML',
 ]
+
+import { useRoute } from 'vue-router'
+const route = useRoute()
 </script>

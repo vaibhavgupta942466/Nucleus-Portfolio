@@ -7,43 +7,45 @@ import WorkView from '@/views/WorkView.vue'
 import BlogView from '@/views/BlogView.vue'
 import ContactView from '@/views/ContactView.vue'
 import NotFoundView from '../views/NotFoundView.vue'
+import MobileLandingView from '@/views/MobileLandingView.vue' // Assuming a dedicated mobile landing view
 
-// Create a reactive mobile state
+// Reactive state for device type
 const isMobile = ref(false)
 
-// Function to check if device is mobile
-const checkMobile = () => {
+// Function to detect device type
+const checkDeviceType = () => {
   isMobile.value = window.innerWidth < 768 // Adjust breakpoint as needed
 }
 
-// Initialize mobile detection
-if (typeof window !== 'undefined') {
-  // Initial check
-  checkMobile()
-
-  // Add resize listener
-  window.addEventListener('resize', checkMobile)
-}
+// Add event listener for responsive updates
+window.addEventListener('resize', checkDeviceType)
+checkDeviceType() // Initialize the check on load
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
       path: '/',
-      alias: '/home',
+      name: 'mobile-landing',
+      component: MobileLandingView,
+      meta: {
+        allowMobile: true,
+        label: 'Mobile Landing',
+        icon: '/image/mobile.svg',
+        menu: false,
+        mobileOnly: true,
+      },
+    },
+    {
+      path: '/home',
       name: 'home',
       component: HomeView,
       meta: {
-        allowMobile: true,
+        allowMobile: false,
         label: 'Home',
         icon: '/image/home.svg',
         menu: true,
       },
-
-      // // route level code-splitting
-      // // this generates a separate chunk (About.[hash].js) for this route
-      // // which is lazy-loaded when the route is visited.
-      // component: () => import('../views/HomeView.vue'),
     },
     {
       path: '/about',
@@ -57,18 +59,18 @@ const router = createRouter({
       component: ResumeView,
       meta: { label: 'Resume', icon: '/image/resume.svg', menu: true },
     },
-    // {
-    //   path: '/work',
-    //   name: 'work',
-    //   component: WorkView,
-    //   meta: { label: 'Work', icon: '/image/work.svg', menu: true },
-    // },
-    // {
-    //   path: '/blog',
-    //   name: 'blog',
-    //   component: BlogView,
-    //   meta: { label: 'Blog', icon: '/image/blog.svg', menu: true },
-    // },
+    {
+      path: '/work',
+      name: 'work',
+      component: WorkView,
+      meta: { label: 'Work', icon: '/image/work.svg', menu: true },
+    },
+    {
+      path: '/blog',
+      name: 'blog',
+      component: BlogView,
+      meta: { label: 'Blog', icon: '/image/blog.svg', menu: true },
+    },
     {
       path: '/contact',
       name: 'contact',
@@ -80,58 +82,21 @@ const router = createRouter({
       name: 'not-found',
       component: NotFoundView,
       meta: { allowMobile: true },
-      // Redirect users to the home page when they attempt to access an undefined route.
-      // redirect: '/',
+      redirect: '/home', // Redirect undefined routes to '/home'
     },
   ],
 })
 
-// Router navigation guard
+// Global Navigation Guard
 router.beforeEach((to, from, next) => {
-  // Check current device state
-  const currentlyMobile = isMobile.value
-
-  // Handle mobile navigation
-  if (currentlyMobile) {
-    // If on mobile and trying to access a non-home route
-    if (to.path !== '/' && !to.query.mobileRedirect) {
-      // Store the original route data
-      next({
-        path: '/',
-        query: {
-          mobileRedirect: true,
-          intendedRoute: to.path,
-          intendedParams: JSON.stringify(to.params),
-          intendedQuery: JSON.stringify(to.query),
-        },
-      })
-    } else {
-      next()
-    }
+  // Check if the route is restricted to mobile or desktop
+  if (to.meta.mobileOnly && !isMobile.value) {
+    next('/home') // Redirect to desktop route for non-mobile devices
+  } else if (!to.meta.allowMobile && isMobile.value) {
+    next('/') // Redirect to mobile landing for mobile devices
   } else {
-    // If on desktop and was previously redirected
-    if (to.query.mobileRedirect) {
-      // Restore the original route
-      const originalPath = to.query.intendedRoute || '/'
-      const originalParams = JSON.parse(to.query.intendedParams || '{}')
-      const originalQuery = JSON.parse(to.query.intendedQuery || '{}')
-
-      next({
-        path: originalPath,
-        params: originalParams,
-        query: originalQuery,
-      })
-    } else {
-      next()
-    }
+    next() // Allow navigation
   }
 })
 
-// Clean up function to remove event listener
-const cleanupRouter = () => {
-  if (typeof window !== 'undefined') {
-    window.removeEventListener('resize', checkMobile)
-  }
-}
-
-export { router, cleanupRouter }
+export default router

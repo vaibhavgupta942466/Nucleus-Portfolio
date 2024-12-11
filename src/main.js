@@ -5,18 +5,13 @@ import { createApp } from 'vue'
 import { createPinia } from 'pinia'
 
 import App from './App.vue'
-import { router, cleanupRouter } from './router'
+import router from './router'
 
 const app = createApp(App)
 
 app.use(createPinia())
 app.use(router)
 app.mount('#app')
-
-// Add cleanup on app unmount
-app.unmount = () => {
-  cleanupRouter()
-}
 
 // If want to add persistence (menu state survives page reloads),
 // import { createApp } from 'vue'

@@ -68,7 +68,10 @@
     <div class="flex items-center justify-center gap-x-5 py-3">
       <button
         type="submit"
-        class="rounded bg-blue px-6 py-2 text-sm font-semibold shadow-sm transition-transform hover:scale-110"
+        :class="[
+          'rounded bg-blue px-6 py-2 text-sm font-semibold shadow-sm transition-transform hover:scale-110',
+          ['/home', '/'].includes(route.path) ? 'block' : 'hidden',
+        ]"
       >
         Download Resume
       </button>
@@ -145,4 +148,8 @@ onMounted(() => {
   // Update the DOB link in contactInfo after calendar link is generated
   contactInfo.value[3].link = calendarLink.value
 })
+
+import { useRoute } from 'vue-router'
+
+const route = useRoute()
 </script>

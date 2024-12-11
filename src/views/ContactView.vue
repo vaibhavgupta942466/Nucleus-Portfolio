@@ -1,6 +1,6 @@
 <!-- src/views/Contact.vue -->
 <template>
-  <div class="container mx-auto rounded shadow-md py-4 px-2 flex flex-col">
+  <div class="container mx-auto rounded shadow-md p-2 flex flex-col">
     <div class="container flex flex-col">
       <h2 class="text-3xl font-bold my-6">Contact</h2>
       <form @submit.prevent="handleSubmit">
@@ -120,6 +120,20 @@ const handleSubmit = async () => {
     return
   }
 
+  const body = {
+    recipientEmail: 'vaibhavgupta942466@gmail.com',
+    recipientName: 'Vaibahv Gupta',
+    subject: 'New Query From Portfolio',
+    templateId: '6541509',
+    variables: {
+      source_name: 'Portfolio Website',
+      user_name: formData.name,
+      user_email: formData.email,
+      user_mesage: formData.message,
+      message_date: new Date(),
+    },
+  }
+
   try {
     const response = await fetch(
       'https://us-central1-nucelus.cloudfunctions.net/nucleus-creator-portfolio-query-mail',
@@ -128,7 +142,7 @@ const handleSubmit = async () => {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(formData),
+        body: JSON.stringify(body),
         mode: 'cors', // This tells the browser to make a CORS request.
       },
     )

@@ -1,13 +1,10 @@
 <!-- src/components/HeaderBar.vue -->
 <template>
   <header>
-    <div
-      class="flex flex-wrap items-center justify-between mx-auto px-2"
-      :class="isMobile || isTablet ? 'py-4' : 'pb-20 pt-4'"
-    >
+    <div class="flex flex-wrap items-center justify-between mx-auto p-2">
       <RouterLink
-        to="/"
-        class="flex items-center space-x-3 rtl:space-x-reverse"
+        to="/home"
+        class="flex items-center space-x-1 rtl:space-x-reverse"
       >
         <img
           src="/image/logo.svg"
@@ -22,14 +19,14 @@
         <ThemeToggle />
         <!-- Mobile Menu Button -->
         <button
-          v-if="isTablet"
           type="button"
-          class="inline-flex items-center w-10 h-10 justify-center text-sm rounded-lg focus:outline-none"
+          class="hidden md:block xl:hidden space-x-1 inline-flex items-center w-10 h-10 justify-center text-sm rounded-lg focus:outline-none"
           @click="menuStore.toggleMenu"
         >
           <span class="sr-only">Toggle menu</span>
           <svg
-            class="w-5 h-5"
+            v-if="!isMenuOpen"
+            class="w-7 h-7"
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
             viewBox="0 0 17 14"
@@ -42,11 +39,30 @@
               d="M1 1h15M1 7h15M1 13h15"
             />
           </svg>
+
+          <!-- Cross Icon -->
+          <svg
+            v-if="isMenuOpen"
+            class="w-7 h-7"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 17 14"
+          >
+            <path
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M2 12l10-10M12 12L2 2"
+            />
+          </svg>
         </button>
       </div>
     </div>
     <!-- Navigation Menu -->
-    <nav :class="['w-full', isMenuOpen ? 'block' : 'hidden']">
+    <nav
+      :class="['w-full hidden xl:hidden', isMenuOpen ? 'md:block' : 'hidden']"
+    >
       <ul class="flex flex-col m-2 p-2 border rounded-lg rtl:space-x-reverse">
         <li
           @click="menuStore.closeMenu"
@@ -80,10 +96,9 @@
 </template>
 
 <script setup>
-import { router } from '@/router'
+import router from '@/router'
 import { useRoute } from 'vue-router'
 import ThemeToggle from './ThemeToggle.vue'
-import { ref, onMounted, onUnmounted } from 'vue'
 
 const route = useRoute()
 
@@ -96,40 +111,4 @@ const menuStore = useMenuStore()
 
 // If you need to destructure store properties while keeping reactivity
 const { isMenuOpen } = storeToRefs(menuStore)
-
-// State for mobile view handling
-const isMobile = ref(false)
-const isTablet = ref(false)
-
-// Check if device is mobile
-const checkMobile = () => {
-  isMobile.value = window.innerWidth < 768 // lg breakpoint in Tailwind
-}
-
-// Initialize mobile detection
-onMounted(() => {
-  checkMobile()
-  window.addEventListener('resize', checkMobile)
-})
-
-onUnmounted(() => {
-  checkMobile()
-  window.removeEventListener('resize', checkMobile)
-})
-
-// Check if device is tablet
-const checkTablet = () => {
-  isTablet.value = window.innerWidth < 1024 && window.innerWidth >= 768 // lg breakpoint in Tailwind
-}
-
-// Initialize tablet detection
-onMounted(() => {
-  checkTablet()
-  window.addEventListener('resize', checkTablet)
-})
-
-onUnmounted(() => {
-  checkTablet()
-  window.removeEventListener('resize', checkTablet)
-})
 </script>
