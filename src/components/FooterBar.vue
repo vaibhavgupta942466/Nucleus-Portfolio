@@ -1,6 +1,6 @@
 <!-- src/components/FooterBar.vue -->
 <template>
-  <footer :class="route.path === '/home' ? 'hidden' : 'block'">
+  <footer>
     <!-- Main Footer Content -->
     <div class="container mx-auto px-2 py-6">
       <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
@@ -21,7 +21,7 @@
             <span
               v-for="tech in techStack"
               :key="tech"
-              class="px-3 py-1 text-sm border border-slate-200 text-slate-600 rounded-md hover:border-blue hover:text-blue transition-colors duration-300"
+              class="px-3 py-1 text-sm border border-slate-200 text-slate-600 rounded-xl hover:border-blue hover:text-blue transition-colors duration-300"
             >
               {{ tech }}
             </span>
@@ -55,7 +55,4 @@ const techStack = [
   'Python',
   'AI/ML',
 ]
-
-import { useRoute } from 'vue-router'
-const route = useRoute()
 </script>

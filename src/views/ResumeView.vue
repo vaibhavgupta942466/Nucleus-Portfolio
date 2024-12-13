@@ -1,6 +1,6 @@
 <!-- src/views/ResumeView.vue -->
 <template>
-  <div class="container mx-auto rounded shadow-md p-2 flex flex-col">
+  <div class="container mx-auto rounded-xl shadow-md p-2 flex flex-col">
     <h2 class="text-3xl font-bold my-6">Resume</h2>
     <div class="container mx-auto py-6">
       <div class="grid grid-cols-1 md:grid-cols-2 gap-8">

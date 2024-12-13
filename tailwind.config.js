@@ -3,11 +3,13 @@ export default {
   darkMode: 'selector',
   theme: {
     screens: {
-      sm: '480px',
-      md: '768px',
-      lg: '1024px',
-      xl: '1280px',
-      '2xl': '1536px',
+      sm: '640px', // Small screens (mobile)
+      md: '768px', // Medium screens (tablet)
+      lg: '1024px', // Large screens (laptop)
+      xl: '1280px', // Extra Large screens (large laptops)
+      '2xl': '1536px', // 2x Extra Large screens (desktop monitors)
+      '3xl': '1920px', // 3x Extra Large screens (big desktop monitors)
+      '4xl': '2560px', // Custom 4x Extra Large screens (very large monitors)
     },
     colors: {
       primary: {

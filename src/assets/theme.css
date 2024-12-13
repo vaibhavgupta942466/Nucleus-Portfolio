@@ -1,18 +1,59 @@
 /* src/assets/theme.css */
+/* Light Theme (Default) */
 :root {
   --background-color: #ffffff;
-  --text-color: #000000;
+  --text-color: #1e1e1e;
+  --accent-color: #0078d4; /* Primary accent color */
+  --muted-color: #6c757d; /* Muted text color */
+  --border-color: #e0e0e0; /* Border color for light theme */
+  --shadow-color: rgba(0, 0, 0, 0.1); /* Soft shadow */
 }
 
+/* Dark Theme */
 [data-theme='dark'] {
   --background-color: #1e1e1e;
-  --text-color: #ffffff;
+  --text-color: #e6e6e6;
+  --accent-color: #0d6efd; /* Adjusted accent color for better contrast */
+  --muted-color: #9ca3af; /* Muted text color for dark theme */
+  --border-color: #343a40; /* Border color for dark theme */
+  --shadow-color: rgba(0, 0, 0, 0.4); /* Deeper shadow */
+}
+
+/* Global Styles */
+body {
+  background-color: var(--background-color);
+  color: var(--text-color);
+  transition:
+    background-color 0.5s ease-in-out,
+    color 0.5s ease-in-out;
+  font-family:
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    'Segoe UI',
+    Roboto,
+    Oxygen,
+    Ubuntu,
+    Cantarell,
+    'Open Sans',
+    'Helvetica Neue',
+    sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+/* Smooth Scroll */
+html {
+  scroll-behavior: smooth;
 }
 
 body {
   background-color: var(--background-color);
   color: var(--text-color);
   transition:
-    background-color 0.3s,
-    color 0.3s;
+    background-color 1s,
+    color 1s;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }

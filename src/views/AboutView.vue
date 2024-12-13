@@ -1,6 +1,6 @@
 <!-- src/views/AboutView.vue -->
 <template>
-  <div class="container mx-auto rounded shadow-md p-2 flex flex-col">
+  <div class="container mx-auto rounded-xl shadow-md p-2 flex flex-col">
     <h2 class="text-3xl font-bold my-6">About Me</h2>
     <p
       class="leading-relaxed mb-2 text-sm"
@@ -62,7 +62,7 @@
         <li
           v-for="(image, index) in clientImages"
           :key="index"
-          class="bg-gray-light border-lg rounded shadow-md shadow-gray-dark px-8 py-1"
+          class="bg-gray-light border-lg rounded-xl shadow-md shadow-gray-dark px-8 py-1"
         >
           <img
             :src="image.src"
@@ -78,7 +78,7 @@
         <li
           v-for="(image, index) in clientImages"
           :key="index"
-          class="bg-gray-light border-lg rounded shadow-md shadow-gray-dark px-8 py-1"
+          class="bg-gray-light border-lg rounded-xl shadow-md shadow-gray-dark px-8 py-1"
         >
           <img
             :src="image.src"

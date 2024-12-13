@@ -1,6 +1,6 @@
 <!-- src/views/Contact.vue -->
 <template>
-  <div class="container mx-auto rounded shadow-md p-2 flex flex-col">
+  <div class="container mx-auto rounded-xl shadow-md p-2 flex flex-col">
     <div class="container flex flex-col">
       <h2 class="text-3xl font-bold my-6">Contact</h2>
       <form @submit.prevent="handleSubmit">
@@ -69,7 +69,7 @@
         >
           <div
             v-if="alertMessage"
-            class="bg-gray-50 text-gray-900 rounded my-6 border border-gray-300 px-4 py-2"
+            class="bg-gray-50 text-gray-900 rounded-xl my-6 border border-gray-300 px-4 py-2"
             role="alert"
           >
             {{ alertMessage }}

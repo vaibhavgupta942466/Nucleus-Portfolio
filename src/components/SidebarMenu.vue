@@ -1,8 +1,6 @@
 <!-- src/components/SidebarMemu.vue -->
 <template>
-  <div
-    class="container hidden xl:block flex flex-col mx-auto shadow-md rounded py-4 px-2"
-  >
+  <div class="container flex flex-col mx-auto shadow-md rounded-xl p-2">
     <router-link
       v-for="item in router.getRoutes().filter(route => {
         return (
@@ -16,7 +14,7 @@
       })"
       :key="item.path"
       :to="item.path"
-      class="flex flex-col items-center hover:bg-blue font-semibold m-2 p-2 last:mb-0 rounded transition-transform hover:scale-110"
+      class="flex flex-col items-center hover:bg-blue font-semibold m-2 p-1 first:mt-0 last:mb-0 rounded-md transition-transform hover:scale-110"
       :class="
         route.path === item.path || route.path === item?.aliasOf?.path
           ? 'bg-blue'
