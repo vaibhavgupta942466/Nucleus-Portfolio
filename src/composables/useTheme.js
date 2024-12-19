@@ -9,7 +9,7 @@ export function useTheme() {
     const savedTheme = localStorage.getItem('theme')
     if (savedTheme) {
       theme.value = savedTheme
-      document.documentElement.setAttribute('data-theme', savedTheme)
+      applyTheme(savedTheme)
     } else {
       // Default to user's system preference
       const deviceTheme = window.matchMedia('(prefers-color-scheme: dark)')
@@ -17,7 +17,7 @@ export function useTheme() {
         ? 'dark'
         : 'light'
       theme.value = deviceTheme
-      document.documentElement.setAttribute('data-theme', deviceTheme)
+      applyTheme(deviceTheme)
     }
   })
 
@@ -25,8 +25,17 @@ export function useTheme() {
 
   function toggleTheme() {
     theme.value = theme.value === 'light' ? 'dark' : 'light'
-    document.documentElement.setAttribute('data-theme', theme.value)
+    applyTheme(theme.value)
     localStorage.setItem('theme', theme.value) // Save theme preference
+  }
+
+  function applyTheme(themeValue) {
+    document.documentElement.setAttribute('data-theme', themeValue)
+    if (themeValue === 'dark') {
+      document.documentElement.classList.add('dark')
+    } else {
+      document.documentElement.classList.remove('dark')
+    }
   }
 
   return { theme, isDarkMode, toggleTheme }
