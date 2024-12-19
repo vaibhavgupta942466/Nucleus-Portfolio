@@ -1,8 +1,10 @@
 <template>
   <!-- Landing Animation Template -->
-  <div class="h-screen w-full bg-black flex items-center justify-center">
+  <div
+    class="container bg-[#1e1e1e] h-screen w-full flex items-center justify-center"
+  >
     <div
-      class="text-md md:text-md text-green tracking-tight opacity-40 typewriter"
+      class="text-md xl:text-xl text-bold text-green tracking-tight opacity-40 typewriter"
     >
       <span>{{ displayedText }}</span>
     </div>

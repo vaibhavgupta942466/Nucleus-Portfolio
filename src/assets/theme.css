@@ -164,3 +164,87 @@ html {
   image-rendering: pixelated;
   background-repeat: repeat;
 }
+
+.slide-navigation-in {
+  animation: slideNavigationDown 1s ease-in-out;
+}
+
+/* Slide Navigation Animation */
+@keyframes slideNavigationDown {
+  0% {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.slide-navigation-out {
+  animation: slideNavigationUp 1s ease-in-out;
+}
+
+/* Slide Navigation Animation */
+@keyframes slideNavigationUp {
+  0% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+}
+
+/* Class to apply animation */
+.right-to-left {
+  animation: slideRightToLeft 1s ease-in-out;
+}
+
+/* Keyframes for slide-in animation */
+@keyframes slideRightToLeft {
+  0% {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  25% {
+    opacity: 0.4;
+  }
+  50% {
+    opacity: 0.7;
+  }
+  75% {
+    opacity: 0.9;
+  }
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+/* Class to apply animation */
+.left-to-right {
+  animation: slideLeftToRight 1s ease-in-out;
+}
+
+/* Keyframes for slide-in animation */
+@keyframes slideLeftToRight {
+  0% {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+  25% {
+    opacity: 0.4;
+  }
+  50% {
+    opacity: 0.7;
+  }
+  75% {
+    opacity: 0.9;
+  }
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}

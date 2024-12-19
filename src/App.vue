@@ -1,7 +1,7 @@
 <!-- App.vue -->
 
 <script setup>
-import { useRoute, RouterView } from 'vue-router'
+import { RouterView, useRoute } from 'vue-router'
 import LandingView from './views/LandingView.vue'
 import ProfileCard from './components/ProfileCard.vue'
 import SidebarMenu from './components/SidebarMenu.vue'
@@ -29,20 +29,24 @@ onMounted(() => {
 </script>
 
 <template>
-  <template v-if="showLanding"><LandingView /> </template>
-  <template v-else>
-    <div
-      class="container mx-auto min-h-screen"
-      :class="['/', '/home'].includes(route.path) ? 'w-full' : 'w-10/12'"
-    >
+  <div
+    class="container mx-auto min-h-screen"
+    :class="['/', '/home'].includes(route.path) ? 'w-full' : 'w-10/12'"
+  >
+    <template v-if="showLanding"><LandingView /> </template>
+    <template v-else>
       <!-- Ensures the container takes at least full height of the screen -->
-      <HeaderBar :class="route.path === '/home' ? 'sticky top-0 z-10' : ''" />
+      <HeaderBar
+        :class="
+          route.path === '/home' ? 'sticky top-0 z-10 slide-navigation-in' : ''
+        "
+      />
       <div
         class="flex flex-col justify-center xl:flex-row xl:justify-center h-full gap-2"
         @click="menuStore.closeMenu"
       >
         <ProfileCard
-          class="xl:w-1/4 h-full"
+          class="xl:w-1/4 h-full left-to-right"
           :class="route.path === '/home' ? 'hidden' : 'block'"
         />
         <!-- Ensures ProfileCard takes full height -->
@@ -52,12 +56,12 @@ onMounted(() => {
         />
         <!-- Ensures RouterView takes full height -->
         <SidebarMenu
-          class="xl:w-1/12 h-full hidden sticky top-0"
+          class="xl:w-1/12 h-full hidden sticky top-0 right-to-left"
           :class="route.path === '/home' ? 'hidden' : 'xl:block'"
         />
         <!-- Ensures SidebarMenu takes full height -->
       </div>
       <FooterBar :class="route.path === '/home' ? 'hidden' : 'block'" />
-    </div>
-  </template>
+    </template>
+  </div>
 </template>

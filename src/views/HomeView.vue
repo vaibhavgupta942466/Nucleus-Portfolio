@@ -17,15 +17,21 @@
         <!-- Alternating Triangular Boxes -->
         <div
           v-if="['/about', '/contact'].includes(item.path)"
-          class="tracking-wider absolute top-80 block rounded-xl px-2 rounded font-bold"
-          :class="[
-            item.path === '/about' ? '-rotate-90 left-0 ' : 'rotate-90 right-0',
-            isDarkMode
-              ? 'animated-background-route-dark'
-              : 'animated-background-route',
-          ]"
+          class="tracking-wider absolute top-80 block slide-navigation-button"
+          :class="
+            item.path === '/about' ? '-rotate-90 left-0 ' : 'rotate-90 right-0 '
+          "
         >
-          {{ item.meta.label }}
+          <div
+            class="rounded-xl px-2 font-bold"
+            :class="
+              isDarkMode
+                ? 'animated-background-route-dark'
+                : 'animated-background-route'
+            "
+          >
+            {{ item.meta.label }}
+          </div>
         </div>
         <div
           v-else
@@ -39,7 +45,7 @@
           <img
             :src="item?.meta?.icon || defaultIcon"
             :alt="item?.meta?.label || 'Default Label'"
-            class="w-32 h-32 duration-1000 ease-in-out hover:w-40 hover:h-40"
+            class="w-32 h-32 duration-1000 ease-in-out hover:w-40 hover:h-40 slide-navigation-in"
           />
         </div>
       </router-link>
@@ -51,14 +57,16 @@
     >
       <div
         ref="titleElement"
-        class="pl-2 md:pl-4 xl:pl-8 text-center text-[10vw] md:text-[14vw] lg:text-[18vw] font-extrabold uppercase text-gray-800 dark:text-gray-400 tracking-widest slide-text"
+        class="pl-2 md:pl-4 xl:pl-8 text-center text-[10vw] md:text-[14vw] lg:text-[18vw] font-extrabold uppercase text-gray-800 dark:text-gray-400 tracking-widest right-to-left"
       >
         {{ hoveredRoute }}
       </div>
     </div>
 
     <!-- Footer Social Links -->
-    <div class="absolute bottom-3 right-6 flex flex-col gap-2 z-10">
+    <div
+      class="absolute bottom-3 right-6 flex flex-col gap-2 z-10 right-to-left"
+    >
       <a
         v-for="social in socialLinks"
         :key="social.url"
@@ -93,9 +101,9 @@ const titleElement = ref(null)
 watch(hoveredRoute, () => {
   if (titleElement.value) {
     // Reset animation by removing and re-adding the class
-    titleElement.value.classList.remove('slide-text')
+    titleElement.value.classList.remove('right-to-left')
     void titleElement.value.offsetWidth // Force reflow
-    titleElement.value.classList.add('slide-text')
+    titleElement.value.classList.add('right-to-left')
   }
 })
 
@@ -113,22 +121,18 @@ const filteredRoutes = router.getRoutes().filter(route => {
 </script>
 
 <style scoped>
-/* Class to apply animation */
-.slide-text {
-  animation: slideIn 1s ease-in-out; /* Adjust duration and timing */
+.slide-navigation-button {
+  animation: slideNavigationButton 1s ease-in-out;
 }
 
-/* Keyframes for slide-in animation */
-@keyframes slideIn {
+/* Slide Navigation Animation */
+@keyframes slideNavigationButton {
   0% {
-    transform: translateX(100%);
+    transform: translateY(-500%);
     opacity: 0;
   }
-  50% {
-    opacity: 1;
-  }
   100% {
-    transform: translateX(0);
+    transform: translateY(0), rotate(90deg);
     opacity: 1;
   }
 }
