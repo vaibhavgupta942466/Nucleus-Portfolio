@@ -43,3 +43,124 @@ body {
 html {
   scroll-behavior: smooth;
 }
+
+/* Background Color Animation - 10 */
+@keyframes backgroundColorChange {
+  0% {
+    background-color: #e4f2d8;
+  }
+  10% {
+    background-color: #e5d9f2;
+  }
+  20% {
+    background-color: #d9eafd;
+  }
+  30% {
+    background-color: #bcccdc;
+  }
+  40% {
+    background-color: #d7d3bf;
+  }
+  50% {
+    background-color: #e5e1da;
+  }
+  60% {
+    background-color: #ffe3e3;
+  }
+  70% {
+    background-color: #e5d9f2;
+  }
+  80% {
+    background-color: #e7e8d8;
+  }
+  90% {
+    background-color: #d6dac8;
+  }
+  100% {
+    background-color: #eee7da;
+  }
+}
+
+/* Dark Theme Background Color Animation - 10 */
+@keyframes backgroundColorChangeDark {
+  0% {
+    background-color: #432e54;
+  }
+  10% {
+    background-color: #503c3c;
+  }
+  20% {
+    background-color: #352f44;
+  }
+  30% {
+    background-color: #0b192c;
+  }
+  40% {
+    background-color: #3c3d37;
+  }
+  50% {
+    background-color: #444444;
+  }
+  60% {
+    background-color: #4c4c4c;
+  }
+  70% {
+    background-color: #697565;
+  }
+  80% {
+    background-color: #40534c;
+  }
+  90% {
+    background-color: #344c64;
+  }
+  100% {
+    background-color: #503c3c; /* Slightly lighter gray */
+  }
+}
+
+.animated-background-route {
+  animation: backgroundColorChange 60s infinite ease-in-out;
+}
+
+.animated-background {
+  animation: backgroundColorChange 60s infinite ease-in-out;
+
+  /* Pixel Effect (uses gradients for retro-style pixelation) */
+  background-size: 5px 5px; /* Adjust pixel size with space between */
+  background-image: linear-gradient(
+    45deg,
+    rgba(0, 0, 0, 0.1) 25%,
+    transparent 25%,
+    transparent 50%,
+    rgba(0, 0, 0, 0.1) 50%,
+    rgba(0, 0, 0, 0.1) 75%,
+    transparent 75%,
+    transparent
+  );
+  image-rendering: pixelated; /* Pixel effect */
+
+  /* Border simulation for each "pixel" */
+  background-repeat: repeat;
+}
+
+.animated-background-route-dark {
+  animation: backgroundColorChangeDark 60s infinite ease-in-out;
+}
+
+.animated-background-dark {
+  animation: backgroundColorChangeDark 60s infinite ease-in-out;
+  /* Keep pixel effect, but adjust for dark theme */
+  background-size: 5px 5px;
+  background-image: linear-gradient(
+    45deg,
+    rgba(200, 200, 200, 0.1) 25%,
+    /* Light gray for pixel effect */ transparent 25%,
+    transparent 50%,
+    rgba(200, 200, 200, 0.1) 50%,
+    rgba(180, 180, 180, 0.1) 75%,
+    /* Slightly darker gray */ transparent 75%,
+    transparent
+  );
+  image-rendering: pixelated;
+  background-repeat: repeat;
+}

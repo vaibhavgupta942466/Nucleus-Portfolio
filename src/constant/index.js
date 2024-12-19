@@ -1,6 +1,15 @@
 // src/constants/index.js
 import { generateCalendarLink } from '@/utils'
 
+export const scriptText = `
+C:\\Users\\nucleus> .code
+C:\\Users\\nucleus> npx nucleus-creator-portfolio
+C:\\Users\\nucleus> cd nucleus-creator-portfolio
+C:\\Users\\nucleus\\nucleus-creator-portfolio> npm install
+C:\\Users\\nucleus\\nucleus-creator-portfolio> npm run dev
+`
+export const typingSpeed = 25
+
 export const socialLinks = [
   {
     url: 'https://www.linkedin.com/in/vaibhav-gupta-devai/',
