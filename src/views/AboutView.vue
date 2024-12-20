@@ -1,6 +1,8 @@
 <!-- src/views/AboutView.vue -->
 <template>
-  <div class="container mx-auto rounded-xl shadow-md p-2 flex flex-col">
+  <div
+    class="container mx-auto rounded-xl shadow-md p-2 flex flex-col overflow-y-auto"
+  >
     <h2 class="text-3xl font-bold my-6">About Me</h2>
     <p
       class="leading-relaxed mb-2 text-sm"

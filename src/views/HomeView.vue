@@ -1,7 +1,10 @@
 <template>
   <div
-    class="h-screen w-full overflow-hidden duration-500 ease-in-out"
-    :class="isDarkMode ? 'animated-background-dark' : 'animated-background'"
+    class="h-screen w-full overflow-hidden f-fill"
+    :class="[
+      isDarkMode ? 'animated-background-dark' : 'animated-background',
+      route.path === '/home' ? 'absolute top-0 left-0' : '',
+    ]"
   >
     <div
       class="flex justify-center items-center h-full flex-col lg:flex-row lg:gap-5 z-10"
@@ -17,7 +20,7 @@
         <!-- Alternating Triangular Boxes -->
         <div
           v-if="['/about', '/contact'].includes(item.path)"
-          class="tracking-wider absolute top-80 block slide-navigation-button"
+          class="tracking-wider absolute top-80 slide-navigation-enter-active"
           :class="
             item.path === '/about' ? '-rotate-90 left-0 ' : 'rotate-90 right-0 '
           "
@@ -45,7 +48,7 @@
           <img
             :src="item?.meta?.icon || defaultIcon"
             :alt="item?.meta?.label || 'Default Label'"
-            class="w-32 h-32 duration-1000 ease-in-out hover:w-40 hover:h-40 slide-navigation-in"
+            class="w-32 h-32 duration-500 ease-in-out hover:w-40 hover:h-40 slide-y-enter-active"
           />
         </div>
       </router-link>
@@ -53,11 +56,11 @@
 
     <!-- Centered Title (Dynamic) -->
     <div
-      class="absolute inset-x-0 bottom-12 flex justify-center items-center opacity-30 pointer-events-none"
+      class="absolute inset-0 h-full flex justify-center items-end opacity-30 pointer-events-none overflow-hidden"
     >
       <div
         ref="titleElement"
-        class="pl-2 md:pl-4 xl:pl-8 text-center text-[10vw] md:text-[14vw] lg:text-[18vw] font-extrabold uppercase text-gray-800 dark:text-gray-400 tracking-widest right-to-left"
+        class="text-[10vw] md:text-[14vw] lg:text-[18vw] font-extrabold uppercase text-gray-800 dark:text-gray-400 right-enter-active"
       >
         {{ hoveredRoute }}
       </div>
@@ -86,8 +89,11 @@
 <script setup>
 import { socialLinks } from '@/constant'
 import router from '@/router'
+import { useRoute } from 'vue-router'
 import { ref, watch } from 'vue'
 import { useTheme } from '@/composables/useTheme'
+
+const route = useRoute()
 
 // Theme management using the useTheme composable
 const { isDarkMode } = useTheme()
@@ -101,9 +107,9 @@ const titleElement = ref(null)
 watch(hoveredRoute, () => {
   if (titleElement.value) {
     // Reset animation by removing and re-adding the class
-    titleElement.value.classList.remove('right-to-left')
+    titleElement.value.classList.remove('right-enter-active')
     void titleElement.value.offsetWidth // Force reflow
-    titleElement.value.classList.add('right-to-left')
+    titleElement.value.classList.add('right-enter-active')
   }
 })
 
@@ -121,22 +127,6 @@ const filteredRoutes = router.getRoutes().filter(route => {
 </script>
 
 <style scoped>
-.slide-navigation-button {
-  animation: slideNavigationButton 1s ease-in-out;
-}
-
-/* Slide Navigation Animation */
-@keyframes slideNavigationButton {
-  0% {
-    transform: translateY(-500%);
-    opacity: 0;
-  }
-  100% {
-    transform: translateY(0), rotate(90deg);
-    opacity: 1;
-  }
-}
-
 .clip-hexagon {
   clip-path: polygon(0 25%, 50% 0, 100% 25%, 100% 75%, 50% 100%, 0 75%);
 }

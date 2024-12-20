@@ -29,44 +29,55 @@ onMounted(() => {
 </script>
 
 <template>
-  <div
-    class="container mx-auto min-h-screen"
-    :class="
-      ['/', '/home'].includes(route.path)
-        ? 'w-full'
-        : 'animate-header-resize-in w-10/12'
-    "
-  >
-    <template v-if="showLanding"><LandingView /> </template>
-    <template v-else>
-      <!-- Ensures the container takes at least full height of the screen -->
-      <HeaderBar
-        :class="
-          route.path === '/home' ? 'sticky top-0 z-10 slide-navigation-in' : ''
-        "
-      />
-      <div
-        class="flex flex-col justify-center xl:flex-row xl:justify-center h-full gap-2"
-        @click="menuStore.closeMenu"
-      >
-        <ProfileCard
-          class="xl:w-1/4 h-full left-to-right"
-          :class="route.path === '/home' ? 'hidden' : 'block'"
-        />
-        <!-- Ensures ProfileCard takes full height -->
-        <RouterView
-          :key="$route.fullPath"
-          class="xl:w-full overflow-y-auto h-full"
-          :class="route.path === '/home' ? 'fixed top-0 left-0' : ''"
-        />
-        <!-- Ensures RouterView takes full height -->
-        <SidebarMenu
-          class="xl:w-1/12 h-full hidden sticky top-0 right-to-left"
-          :class="route.path === '/home' ? 'hidden' : 'xl:block'"
-        />
-        <!-- Ensures SidebarMenu takes full height -->
-      </div>
-      <FooterBar :class="route.path === '/home' ? 'hidden' : 'block'" />
-    </template>
-  </div>
+  <template v-if="showLanding">
+    <LandingView />
+  </template>
+  <template v-else>
+    <RouterView v-slot="{ Component }">
+      <template v-if="Component">
+        <div
+          class="container flex flex-col"
+          :class="['/', '/home'].includes(route.path) ? 'w-full' : 'w-10/12'"
+        >
+          <!-- Transition Wrapper -->
+          <HeaderBar />
+          <div
+            class="flex flex-col justify-center xl:flex-row xl:justify-center gap-2 h-full"
+            @click="menuStore.closeMenu"
+          >
+            <!-- Transition for ProfileCard -->
+            <Transition name="left" mode="out-in">
+              <template v-if="route.path !== '/home'">
+                <ProfileCard class="xl:w-1/4 h-full" />
+              </template>
+            </Transition>
+
+            <!-- Transition for main content -->
+            <Transition name="stack-page" mode="out-in">
+              <KeepAlive>
+                <Suspense>
+                  <!-- Main content -->
+                  <component
+                    class="w-full h-full overflow-y-auto"
+                    :is="Component"
+                  ></component>
+
+                  <!-- Loading state -->
+                  <template #fallback> Loading... </template>
+                </Suspense>
+              </KeepAlive>
+            </Transition>
+
+            <!-- Transition for SidebarMenu -->
+            <Transition name="right" mode="out-in">
+              <template v-if="route.path !== '/home'">
+                <SidebarMenu class="xl:w-1/12 h-full hidden xl:block" />
+              </template>
+            </Transition>
+          </div>
+          <FooterBar />
+        </div>
+      </template>
+    </RouterView>
+  </template>
 </template>

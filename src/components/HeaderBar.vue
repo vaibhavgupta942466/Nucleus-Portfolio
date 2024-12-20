@@ -1,7 +1,12 @@
 <!-- src/components/HeaderBar.vue -->
 <template>
   <header>
-    <div class="flex flex-wrap items-center justify-between mx-auto p-2">
+    <div
+      class="flex flex-wrap items-center justify-between mx-auto p-2"
+      :class="
+        route.path === '/home' ? 'sticky top-0 z-10 slide-y-enter-active' : ''
+      "
+    >
       <RouterLink
         to="/home"
         class="flex items-center space-x-1 rtl:space-x-reverse"
@@ -20,8 +25,9 @@
         <!-- Mobile Menu Button -->
         <button
           type="button"
-          class="hidden md:block xl:hidden space-x-1 inline-flex items-center w-10 h-10 justify-center text-sm rounded-lg focus:outline-none"
+          class="hidden space-x-1 inline-flex items-center w-10 h-10 justify-center text-sm rounded-lg focus:outline-none"
           @click="menuStore.toggleMenu"
+          :class="route.path === '/home' ? '' : 'md:block xl:hidden'"
         >
           <span class="sr-only">Toggle menu</span>
           <svg
