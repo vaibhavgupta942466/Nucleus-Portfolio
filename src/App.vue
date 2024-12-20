@@ -31,7 +31,11 @@ onMounted(() => {
 <template>
   <div
     class="container mx-auto min-h-screen"
-    :class="['/', '/home'].includes(route.path) ? 'w-full' : 'w-10/12'"
+    :class="
+      ['/', '/home'].includes(route.path)
+        ? 'w-full'
+        : 'animate-header-resize-in w-10/12'
+    "
   >
     <template v-if="showLanding"><LandingView /> </template>
     <template v-else>
@@ -51,6 +55,7 @@ onMounted(() => {
         />
         <!-- Ensures ProfileCard takes full height -->
         <RouterView
+          :key="$route.fullPath"
           class="xl:w-full overflow-y-auto h-full"
           :class="route.path === '/home' ? 'fixed top-0 left-0' : ''"
         />

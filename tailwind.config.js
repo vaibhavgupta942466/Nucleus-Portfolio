@@ -52,11 +52,49 @@ export default {
       },
       animation: {
         'infinite-scroll': 'infinite-scroll 30s linear infinite',
+        'header-resize-in': 'headerResizeIn 1s ease-in-out',
+        'header-resize-out': 'headerResizeOut .5s ease-in-out',
+        'stack-page-in': 'stack-page-in 0.5s ease-in-out forwards',
+        'stack-page-out': 'stack-page-out 0.5s ease-in-out forwards',
       },
       keyframes: {
         'infinite-scroll': {
           from: { transform: 'translateX(0)' },
           to: { transform: 'translateX(-100%)' },
+        },
+        headerResizeIn: {
+          '0%': { width: '100%' },
+          '100%': { width: '83.3333%' }, // Equivalent to 10/12
+        },
+        headerResizeOut: {
+          '0%': { width: '83.3333%' },
+          '100%': { width: '100%' }, // Equivalent to 10/12
+        },
+        'stack-page-in': {
+          '0%': {
+            transform:
+              'scale(0.8) translateY(100%)' /* Start scaled down and off-screen */,
+            opacity: '0',
+            zIndex: '0',
+          },
+          '100%': {
+            transform: 'scale(1) translateY(0)' /* Full size and centered */,
+            opacity: '1',
+            zIndex: '1',
+          },
+        },
+        'stack-page-out': {
+          '0%': {
+            transform: 'scale(1) translateY(0)' /* Start at full size */,
+            opacity: '1',
+            zIndex: '1',
+          },
+          '100%': {
+            transform:
+              'scale(0.8) translateY(-100%)' /* Shrinks and moves out of view */,
+            opacity: '0',
+            zIndex: '0',
+          },
         },
       },
     },
