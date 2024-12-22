@@ -29,8 +29,10 @@ onMounted(() => {
 </script>
 
 <template>
-  <template v-if="showLanding"><LandingView /></template>
-  <template v-else>
+  <div v-show="showLanding">
+    <LandingView />
+  </div>
+  <div v-show="!showLanding">
     <div
       class="container mx-auto min-h-screen"
       :class="
@@ -68,5 +70,5 @@ onMounted(() => {
         <FooterBar />
       </template>
     </div>
-  </template>
+  </div>
 </template>
