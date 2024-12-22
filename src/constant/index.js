@@ -2,11 +2,11 @@
 import { generateCalendarLink } from '@/utils'
 
 export const scriptText = `
-C:\\Users\\nucleus> .code
-C:\\Users\\nucleus> npx nucleus-creator-portfolio
-C:\\Users\\nucleus> cd nucleus-creator-portfolio
-C:\\Users\\nucleus\\nucleus-creator-portfolio> npm install
-C:\\Users\\nucleus\\nucleus-creator-portfolio> npm run dev
+nucleus@root:~$ .code
+nucleus@root:~$ npx nucleus-creator-portfolio
+nucleus@root:~$ cd nucleus-creator-portfolio
+nucleus@root:/nucleus-creator-portfolio$ npm install
+nucleus@root:/nucleus-creator-portfolio$ npm run dev
 `
 export const typingSpeed = 25
 

@@ -24,49 +24,49 @@ onMounted(() => {
   const totalDuration = scriptText.length * typingSpeed // Calculate total duration based on script length
   setTimeout(() => {
     showLanding.value = false
-  }, totalDuration + 1000) // Give some extra time for the loading state after the script finishes
+  }, totalDuration + 500) // Give some extra time for the loading state after the script finishes
 })
 </script>
 
 <template>
-  <div
-    class="container mx-auto min-h-screen"
-    :class="
-      ['/', '/home'].includes(route.path)
-        ? 'w-full'
-        : 'animate-header-resize-in w-10/12'
-    "
-  >
-    <template v-if="showLanding"><LandingView /> </template>
-    <template v-else>
-      <!-- Ensures the container takes at least full height of the screen -->
-      <HeaderBar
-        :class="
-          route.path === '/home' ? 'sticky top-0 z-10 slide-navigation-in' : ''
-        "
-      />
+  <template v-if="showLanding"><LandingView /></template>
+  <template v-else>
+    <div
+      class="container mx-auto min-h-screen"
+      :class="
+        ['/', '/home'].includes(route.path)
+          ? 'w-full'
+          : 'animate-header-resize-in w-10/12'
+      "
+    >
+      <Transition name="slide-y" mode="out-in">
+        <HeaderBar :key="route.path === '/home'" />
+      </Transition>
+
       <div
         class="flex flex-col justify-center xl:flex-row xl:justify-center h-full gap-2"
         @click="menuStore.closeMenu"
       >
-        <ProfileCard
-          class="xl:w-1/4 h-full left-to-right"
-          :class="route.path === '/home' ? 'hidden' : 'block'"
-        />
-        <!-- Ensures ProfileCard takes full height -->
-        <RouterView
-          :key="$route.fullPath"
-          class="xl:w-full overflow-y-auto h-full"
-          :class="route.path === '/home' ? 'fixed top-0 left-0' : ''"
-        />
-        <!-- Ensures RouterView takes full height -->
-        <SidebarMenu
-          class="xl:w-1/12 h-full hidden sticky top-0 right-to-left"
-          :class="route.path === '/home' ? 'hidden' : 'xl:block'"
-        />
-        <!-- Ensures SidebarMenu takes full height -->
+        <!-- Transition for ProfileCard -->
+        <Transition name="left" mode="out-in">
+          <template v-if="route.path !== '/home'">
+            <ProfileCard class="xl:w-1/4 h-full" />
+          </template>
+        </Transition>
+
+        <RouterView class="xl:w-full overflow-y-auto h-full" />
+
+        <!-- Transition for SidebarMenu -->
+        <Transition name="right" mode="out-in">
+          <template v-if="route.path !== '/home'">
+            <SidebarMenu class="xl:w-1/12 h-full hidden xl:block" />
+          </template>
+        </Transition>
       </div>
-      <FooterBar :class="route.path === '/home' ? 'hidden' : 'block'" />
-    </template>
-  </div>
+
+      <template v-if="route.path !== '/home'">
+        <FooterBar />
+      </template>
+    </div>
+  </template>
 </template>

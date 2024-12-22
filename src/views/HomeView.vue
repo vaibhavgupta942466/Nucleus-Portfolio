@@ -1,6 +1,6 @@
 <template>
   <div
-    class="h-screen w-full overflow-hidden duration-500 ease-in-out"
+    class="w-full overflow-hidden fixed top-0 left-0"
     :class="isDarkMode ? 'animated-background-dark' : 'animated-background'"
   >
     <div
@@ -45,7 +45,7 @@
           <img
             :src="item?.meta?.icon || defaultIcon"
             :alt="item?.meta?.label || 'Default Label'"
-            class="w-32 h-32 duration-1000 ease-in-out hover:w-40 hover:h-40 slide-navigation-in"
+            class="w-32 h-32 duration-1000 ease-in-out hover:w-40 hover:h-40 slide-y-enter-active"
           />
         </div>
       </router-link>
@@ -53,32 +53,39 @@
 
     <!-- Centered Title (Dynamic) -->
     <div
-      class="absolute inset-x-0 bottom-12 flex justify-center items-center opacity-30 pointer-events-none"
+      class="absolute inset-x-0 bottom-12 flex w-full justify-center opacity-30 pointer-events-none"
     >
-      <div
-        ref="titleElement"
-        class="pl-2 md:pl-4 xl:pl-8 text-center text-[10vw] md:text-[14vw] lg:text-[18vw] font-extrabold uppercase text-gray-800 dark:text-gray-400 tracking-widest right-to-left"
-      >
-        {{ hoveredRoute }}
-      </div>
+      <transition name="right-to-left" mode="out-in">
+        <p
+          v-if="hoveredRoute"
+          :key="hoveredRoute"
+          class="pl-2 md:pl-4 xl:pl-7 text-[10vw] md:text-[14vw] lg:text-[18vw] font-extrabold uppercase text-gray-800 dark:text-gray-400 tracking-widest right-to-left-enter-active"
+        >
+          {{ hoveredRoute }}
+        </p>
+      </transition>
     </div>
 
     <!-- Footer Social Links -->
     <div
-      class="absolute bottom-3 right-6 flex flex-col gap-2 z-10 right-to-left"
+      v-if="route.path"
+      key="social-links"
+      class="absolute bottom-3 flex justify-end w-full"
     >
-      <a
-        v-for="social in socialLinks"
-        :key="social.url"
-        :href="social.url"
-        target="_blank"
-        rel="noopener noreferrer"
-        class="rounded-xl bg-gray-100 dark:bg-gray-900 animate-bounce duration-500 ease-in-out"
-      >
-        <div class="w-5 h-5 flex justify-center items-center">
-          <img :src="social.icon" alt="Social Icon" class="w-3 h-3" />
-        </div>
-      </a>
+      <div class="flex flex-col gap-2 z-10 right-enter-active px-7">
+        <a
+          v-for="social in socialLinks"
+          :key="social.url"
+          :href="social.url"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="rounded-xl bg-gray-100 dark:bg-gray-900 animate-bounce duration-1000 ease-in-out"
+        >
+          <div class="w-5 h-5 flex justify-center items-center">
+            <img :src="social.icon" alt="Social Icon" class="w-3 h-3" />
+          </div>
+        </a>
+      </div>
     </div>
   </div>
 </template>
@@ -86,26 +93,16 @@
 <script setup>
 import { socialLinks } from '@/constant'
 import router from '@/router'
-import { ref, watch } from 'vue'
+import { ref } from 'vue'
 import { useTheme } from '@/composables/useTheme'
+import { useRoute } from 'vue-router'
+
+const route = useRoute()
 
 // Theme management using the useTheme composable
 const { isDarkMode } = useTheme()
 
 const hoveredRoute = ref('Vaibhav') // Default title
-
-// Reference to the title element
-const titleElement = ref(null)
-
-// Watch for changes in hoveredRoute to trigger animation
-watch(hoveredRoute, () => {
-  if (titleElement.value) {
-    // Reset animation by removing and re-adding the class
-    titleElement.value.classList.remove('right-to-left')
-    void titleElement.value.offsetWidth // Force reflow
-    titleElement.value.classList.add('right-to-left')
-  }
-})
 
 // Default icon if none is provided
 const defaultIcon = '/path/to/default/icon.png'
@@ -122,7 +119,7 @@ const filteredRoutes = router.getRoutes().filter(route => {
 
 <style scoped>
 .slide-navigation-button {
-  animation: slideNavigationButton 1s ease-in-out;
+  animation: slideNavigationButton 0.5s ease-in-out;
 }
 
 /* Slide Navigation Animation */
