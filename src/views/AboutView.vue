@@ -92,66 +92,7 @@
 </template>
 
 <script setup>
-const services = [
-  {
-    title: 'Web Development',
-    description:
-      'Building modern, responsive applications with React.js and Vue.js, integrating robust backend systems for scalable and dynamic web solutions.',
-    icon: '/image/web-development.svg',
-  },
-  {
-    title: 'App Development',
-    description:
-      'Developing cross-platform mobile and web App using Flutter, delivering custom solutions that streamline business operations & enhance user engagement.',
-    icon: '/image/app-development.svg',
-  },
-  {
-    title: 'Process Automation & Integration',
-    description:
-      'Automating workflows through n8n, Make.com, and custom integrations to eliminate manual tasks and boost operational efficiency.',
-    icon: '/image/automation.svg',
-  },
-  {
-    title: 'Cloud Solutions & Architecture',
-    description:
-      'Implementing serverless architecture and containerized services on GCP and AWS, ensuring scalable and resilient cloud infrastructure.',
-    icon: '/image/cloud-solution.svg',
-  },
-  {
-    title: 'AI & Machine Learning Integration',
-    description:
-      'Implementing custom AI solutions using OpenAI, Document AI, and RASA frameworks to automate interactions and enhance business intelligence.',
-    icon: '/image/ai-ml.svg',
-  },
-  {
-    title: 'Data Management & Integration',
-    description:
-      'Creating unified data ecosystems with secure pipelines and ETL processes to ensure seamless data flow and accessibility across organizations.',
-    icon: '/image/management.svg',
-  },
-  {
-    title: 'Digital Workspace Solutions (SMART)',
-    description:
-      'Designing efficient knowledge management systems with Notion and Evernote, implementing second brain methodologies for enhanced team collaboration.',
-    icon: '/image/workspace.svg',
-  },
-  {
-    title: 'Business Operations & Analytics',
-    description:
-      'Transforming business data into actionable insights through Google Looker Studio dashboards, optimizing processes and driving data-informed decisions.',
-    icon: '/image/business-operation.svg',
-  },
-]
-
-const clientImages = [
-  { src: '/image/clients/byte-law.svg', alt: 'ByteLaw' },
-  { src: '/image/clients/carsify.svg', alt: 'Carsify' },
-  { src: '/image/clients/persistent.png', alt: 'Persistance' },
-  { src: '/image/clients/very-mulberry.svg', alt: 'Very Mulberry' },
-  { src: '/image/clients/superior-stay.svg', alt: 'Superior Stay' },
-  { src: '/image/clients/neelyx-lab.png', alt: 'Neeylax' },
-  { src: '/image/clients/trusted-communities.svg', alt: 'Trusted Communities' },
-]
+import { services, clientImages } from '@/constant'
 </script>
 
 <style scoped>

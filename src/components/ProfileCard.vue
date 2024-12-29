@@ -1,7 +1,7 @@
 <!-- src/components/ProfileCard.vue -->
 <template>
   <div
-    class="container flex flex-col items-center shadow-md rounded-xl w-full p-2 gap-3"
+    class="container flex flex-col items-center shadow-md rounded-xl w-full h-full p-2 gap-3"
   >
     <!-- Profile Image -->
     <div class="w-25 h-25 rounded-xl overflow-hidden p-2">

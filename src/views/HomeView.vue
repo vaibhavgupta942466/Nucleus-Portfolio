@@ -1,10 +1,8 @@
 <template>
-  <div
-    class="w-full overflow-hidden fixed top-0 left-0"
-    :class="isDarkMode ? 'animated-background-dark' : 'animated-background'"
-  >
+  <div class="container flex flex-col justify-between items-center gap-2">
+    <!-- Custom Navigation Created For Home Page at the center of page -->
     <div
-      class="flex justify-center items-center h-full flex-col lg:flex-row lg:gap-5 z-10"
+      class="flex w-full flex-col gap-2 xl:flex-row justify-center items-center"
     >
       <router-link
         v-for="item in filteredRoutes"
@@ -14,12 +12,14 @@
         @mouseenter="hoveredRoute = item.meta.label"
         @mouseleave="hoveredRoute = 'Vaibhav'"
       >
-        <!-- Alternating Triangular Boxes -->
+        <!-- Conditional Rendering for About and Contact Routes -->
         <div
           v-if="['/about', '/contact'].includes(item.path)"
-          class="tracking-wider absolute top-80 block slide-navigation-button"
+          class="slide-navigation-button"
           :class="
-            item.path === '/about' ? '-rotate-90 left-0 ' : 'rotate-90 right-0 '
+            item.path === '/about'
+              ? '-rotate-90 absolute left-0 top-1/3'
+              : 'rotate-90 absolute right-0 top-1/3'
           "
         >
           <div
@@ -33,9 +33,11 @@
             {{ item.meta.label }}
           </div>
         </div>
+
+        <!-- Conditional Rendering for Resume, Work, and Blog Routes -->
         <div
           v-else
-          class="w-60 h-60 flex justify-center items-center clip-hexagon"
+          class="flex justify-center items-center clip-hexagon w-32 h-32 md:w-40 md:h-40 xl:w-60 xl:h-60"
           :class="
             isDarkMode
               ? 'animated-background-route-dark'
@@ -45,34 +47,30 @@
           <img
             :src="item?.meta?.icon || defaultIcon"
             :alt="item?.meta?.label || 'Default Label'"
-            class="w-32 h-32 duration-1000 ease-in-out hover:w-40 hover:h-40 slide-y-enter-active"
+            class="duration-1000 ease-in-out hover:w-40 hover:h-40 slide-y-enter-active w-16 h-16 md:w-20 md:h-20 xl:w-32 xl:h-32"
           />
         </div>
       </router-link>
     </div>
 
-    <!-- Centered Title (Dynamic) -->
+    <!-- Title Animation just after custom navigation -->
     <div
-      class="absolute inset-x-0 bottom-12 flex w-full justify-center opacity-30 pointer-events-none"
+      class="flex w-full justify-center item-center opacity-30 overflow-hidden pointer-events-none"
     >
       <transition name="right-to-left" mode="out-in">
-        <p
+        <div
           v-if="hoveredRoute"
           :key="hoveredRoute"
-          class="pl-2 md:pl-4 xl:pl-7 text-[10vw] md:text-[14vw] lg:text-[18vw] font-extrabold uppercase text-gray-800 dark:text-gray-400 tracking-widest right-to-left-enter-active"
+          class="text-[10vw] md:text-[14vw] xl:text-[18vw] font-extrabold uppercase text-gray-800 dark:text-gray-400 right-to-left-enter-active"
         >
           {{ hoveredRoute }}
-        </p>
+        </div>
       </transition>
     </div>
 
-    <!-- Footer Social Links -->
-    <div
-      v-if="route.path"
-      key="social-links"
-      class="absolute bottom-3 flex justify-end w-full"
-    >
-      <div class="flex flex-col gap-2 z-10 right-enter-active px-7">
+    <!-- Social Links at the Bottom Right-->
+    <div v-if="route.path" key="social-links" class="absolute bottom-4 right-4">
+      <div class="flex flex-col gap-2 item-center right-enter-active">
         <a
           v-for="social in socialLinks"
           :key="social.url"

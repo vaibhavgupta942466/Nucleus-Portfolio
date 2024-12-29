@@ -20,6 +20,10 @@ import { scriptText, typingSpeed } from '@/constant'
 
 const showLanding = ref(true) // Initially show the landing animation
 
+// Theme management using the useTheme composable
+import { useTheme } from '@/composables/useTheme'
+const { isDarkMode } = useTheme()
+
 onMounted(() => {
   const totalDuration = scriptText.length * typingSpeed // Calculate total duration based on script length
   setTimeout(() => {
@@ -34,11 +38,11 @@ onMounted(() => {
   </div>
   <div v-show="!showLanding">
     <div
-      class="container mx-auto min-h-screen"
+      class="container mx-auto relative min-h-screen"
       :class="
         ['/', '/home'].includes(route.path)
-          ? 'w-full'
-          : 'animate-header-resize-in w-10/12'
+          ? `${route.path === '/home' ? (isDarkMode ? 'animated-background-dark' : 'animated-background') : ''}`
+          : 'w-10/12 animate-header-resize-in'
       "
     >
       <Transition name="slide-y" mode="out-in">
@@ -46,24 +50,20 @@ onMounted(() => {
       </Transition>
 
       <div
-        class="flex flex-col justify-center xl:flex-row xl:justify-center h-full gap-2"
+        class="container flex flex-col justify-center item-center gap-1 xl:flex-row xl:gap-2 xl:justify-center xl:items-start"
         @click="menuStore.closeMenu"
       >
         <!-- Transition for ProfileCard -->
-        <Transition name="left" mode="out-in">
-          <template v-if="route.path !== '/home'">
-            <ProfileCard class="xl:w-1/4 h-full" />
-          </template>
-        </Transition>
+        <template v-if="route.path !== '/home'">
+          <ProfileCard class="xl:w-1/4" />
+        </template>
 
-        <RouterView class="xl:w-full overflow-y-auto h-full" />
+        <RouterView class="xl:w-full overflow-y-auto" />
 
         <!-- Transition for SidebarMenu -->
-        <Transition name="right" mode="out-in">
-          <template v-if="route.path !== '/home'">
-            <SidebarMenu class="xl:w-1/12 h-full hidden xl:block" />
-          </template>
-        </Transition>
+        <template v-if="route.path !== '/home'">
+          <SidebarMenu class="xl:w-1/12" />
+        </template>
       </div>
 
       <template v-if="route.path !== '/home'">

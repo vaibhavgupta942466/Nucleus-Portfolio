@@ -1,6 +1,11 @@
 <!-- src/components/HeaderBar.vue -->
 <template>
-  <header :class="route.path === '/home' ? 'sticky top-0 z-10' : ''">
+  <header
+    class="container w-full"
+    :class="
+      route.path === '/home' ? 'sticky z-10 top-0' : 'shadow-md rounded-lg'
+    "
+  >
     <div class="flex flex-wrap items-center justify-between mx-auto p-2">
       <RouterLink
         to="/home"

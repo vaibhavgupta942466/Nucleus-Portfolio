@@ -30,7 +30,7 @@ const router = createRouter({
       component: MobileLandingView,
       meta: {
         allowMobile: true,
-        label: 'Mobile Landing',
+        label: 'Vaibhav Gupta | Data Analyst & Software Developer Portfolio',
         icon: '/image/mobile.svg',
         menu: false,
         mobileOnly: true,

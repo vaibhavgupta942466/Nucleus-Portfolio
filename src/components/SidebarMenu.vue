@@ -1,7 +1,7 @@
 <!-- src/components/SidebarMemu.vue -->
 <template>
   <div
-    class="container flex flex-col mx-auto shadow-md rounded-xl p-2 sticky top-0"
+    class="container flex flex-col mx-auto shadow-md rounded-xl p-2 sticky top-0 hidden xl:block h-full"
   >
     <router-link
       v-for="item in router.getRoutes().filter(route => {
